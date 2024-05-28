@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body onload="loadCart()">
+    <!-- Header -->
+    <div class="checkout main-page">
+      <!-- Start Header -->
+      <div class="header bg-secondary">
+        <div class="logo">
+          <a href="index.html">
+            <img src="images/logo.jpg" alt="" />
+          </a>
+        </div>
+        <div class="nav">
+          <ul class="w-100">
+            <li>
+              <div class="dropdown">
+                <i class="fa-solid fa-bars"></i>
+                <div class="dropdown-content">
+                  <a href="index.html">Home</a>
+                  <a href="restaurants.html">Restaurants</a>
+                </div>
+              </div>
+            </li>
+            <li><a href="index.html" class="link">Home</a></li>
+            <li>
+              <a href="restaurants.html" class="link">Restaurants</a>
+            </li>
+            <li>
+              <a href="checkout.html" class="active-link"
+                ><i class="fa-solid fa-bag-shopping"></i
+              ></a>
+            </li>
+            <li><a href="login.html" class="mybtn">Login</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- End Header -->
+      <section class="h-100 h-custom" style="background-color: #eee">
+        <div class="container py-5 h-100">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col">
+              <div class="card">
+                <div class="card-body p-4">
+                  <div class="row">
+                    <div class="col-lg-7">
+                      <h5 class="mb-3">
+                        <a href="restaurants.html" class="text-body"
+                          ><i class="fas fa-long-arrow-alt-left me-2"></i
+                          >Continue shopping</a
+                        >
+                      </h5>
+                      <hr />
+
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                      >
+                        <div>
+                          <p class="mb-1">Shopping cart</p>
+                          <p class="mb-0">
+                            You have <span class="cart-quantity">0</span> items
+                            in your cart
+                          </p>
+                        </div>
+                        <div>
+                          <p class="mb-0">
+                            <span class="text-muted">Sort by:</span>
+                            <a href="#!" class="text-body"
+                              >price <i class="fas fa-angle-down mt-1"></i
+                            ></a>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="cart-cont"></div>
+                    </div>
+                    <div class="col-lg-5">
+                      <div class="card bg-primary text-white rounded-3">
+                        <div class="card-body">
+                          <div
+                            class="d-flex justify-content-between align-items-center mb-4"
+                          >
+                            <h5 class="mb-0">Card details</h5>
+                            <img
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                              class="img-fluid rounded-3"
+                              style="width: 45px"
+                              alt="Avatar"
+                            />
+                          </div>
+
+                          <p class="small mb-2">Card type</p>
+                          <a href="#!" type="submit" class="text-white"
+                            ><i class="fab fa-cc-mastercard fa-2x me-2"></i
+                          ></a>
+                          <a href="#!" type="submit" class="text-white"
+                            ><i class="fab fa-cc-visa fa-2x me-2"></i
+                          ></a>
+                          <a href="#!" type="submit" class="text-white"
+                            ><i class="fab fa-cc-amex fa-2x me-2"></i
+                          ></a>
+                          <a href="#!" type="submit" class="text-white"
+                            ><i class="fab fa-cc-paypal fa-2x"></i
+                          ></a>
+
+                          <form class="mt-4">
+                            <div
+                              data-mdb-input-init
+                              class="form-outline form-white mb-4"
+                            >
+                              <input
+                                type="text"
+                                id="typeName"
+                                class="form-control form-control-lg"
+                                siez="17"
+                                placeholder="Cardholder's Name"
+                              />
+                              <label class="form-label" for="typeName"
+                                >Cardholder's Name</label
+                              >
+                            </div>
+
+                            <div
+                              data-mdb-input-init
+                              class="form-outline form-white mb-4"
+                            >
+                              <input
+                                type="text"
+                                id="typeText"
+                                class="form-control form-control-lg"
+                                siez="17"
+                                placeholder="1234 5678 9012 3457"
+                                minlength="19"
+                                maxlength="19"
+                              />
+                              <label class="form-label" for="typeText"
+                                >Card Number</label
+                              >
+                            </div>
+
+                            <div class="row mb-4">
+                              <div class="col-md-6">
+                                <div
+                                  data-mdb-input-init
+                                  class="form-outline form-white"
+                                >
+                                  <input
+                                    type="text"
+                                    id="typeExp"
+                                    class="form-control form-control-lg"
+                                    placeholder="MM/YYYY"
+                                    size="7"
+                                    id="exp"
+                                    minlength="7"
+                                    maxlength="7"
+                                  />
+                                  <label class="form-label" for="typeExp"
+                                    >Expiration</label
+                                  >
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div
+                                  data-mdb-input-init
+                                  class="form-outline form-white"
+                                >
+                                  <input
+                                    type="password"
+                                    id="typeText2"
+                                    class="form-control form-control-lg"
+                                    placeholder="&#9679;&#9679;&#9679;"
+                                    size="1"
+                                    minlength="3"
+                                    maxlength="3"
+                                  />
+                                  <label class="form-label" for="typeText2"
+                                    >Cvv</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+
+                          <hr class="my-4" />
+
+                          <div class="d-flex justify-content-between">
+                            <p class="mb-2">Subtotal</p>
+                            <p class="mb-2">
+                              $<span class="subtotal">4798.00</span>
+                            </p>
+                          </div>
+
+                          <div class="d-flex justify-content-between">
+                            <p class="mb-2">Shipping</p>
+                            <p class="mb-2">$20</p>
+                          </div>
+
+                          <div class="d-flex justify-content-between mb-4">
+                            <p class="mb-2">Total(Incl. taxes)</p>
+                            <p class="mb-2">$<span class="total">4800</span></p>
+                          </div>
+
+                          <button
+                            type="button"
+                            data-mdb-button-init
+                            data-mdb-ripple-init
+                            class="btn mybtn btn-block btn-lg bg-main text-white checkout"
+                          >
+                            <div class="d-flex justify-content-between gap-2">
+                              <span>$<span class="total">4818.00</span> </span>
+                              <span
+                                >Checkout
+                                <i class="fas fa-long-arrow-alt-right ms-2"></i
+                              ></span>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+      function deleteFromCart(food) {
+        var cart = [];
+        cart = JSON.parse(localStorage.getItem("food")) || [];
+        cart = cart.filter(
+          (item) => JSON.stringify(item) != JSON.stringify(food)
+        );
+
+        localStorage.setItem("food", JSON.stringify(cart));
+
+        loadCart();
+      }
+      function loadCartItems(foodItems) {
+        let sum = 0;
+        let cartCont = document.querySelector(".cart-cont");
+        cartCont.innerHTML = "";
+        foodItems.forEach((food) => {
+          cartCont.innerHTML += `<div class="card mb-3">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-row align-items-center">
+                    <div>
+                      <img
+                        src="images/${food.image}"
+                        class="img-fluid rounded-3"
+                        alt="Shopping item"
+                        style="width: 65px"
+                      />
+                    </div>
+                    <div class="ms-3">
+                      <h5>${food.foodName}</h5>
+                      <p class="small mb-0">${
+                        food?.protein ? food.protein + ", " : ""
+                      } ${
+            food?.calories ? "Calories - " + food.calories : ""
+          }</p>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center">
+                    <div style="width: 80px">
+                      <h5 class="mb-0">$${food?.price}</h5>
+                    </div>
+                    <a href="#" onclick="deleteFromCart(${JSON.stringify({
+                      ...food,
+                    })
+                      .split('"')
+                      .join("&quot;")})" style="color: #cecece"
+                      ><i class="fas fa-trash-alt"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+
+          sum += food.price;
+        });
+
+        let subtotal = document.querySelector(".subtotal");
+        subtotal.innerHTML = sum;
+
+        let total = document.querySelectorAll(".total");
+        total.forEach((t) => {
+          t.innerHTML = sum + 20;
+        });
+
+        let cartQuantity = document.querySelector(".cart-quantity");
+        cartQuantity.innerHTML = foodItems.length;
+      }
+      function loadCart() {
+        const storedFoodData = localStorage.getItem("food");
+        console.log("load cart");
+        if (storedFoodData) {
+          const foodItems = JSON.parse(storedFoodData);
+          // You can use foodItems here...
+
+          loadCartItems(foodItems);
+        } else {
+          console.log("User data not found in local storage");
+        }
+      }
+    </script>
+  </body>
+</html>

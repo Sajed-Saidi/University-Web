@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body onload="loadAll()">
+    <!-- Start Main -->
+    <div class="food-categories main-page">
+      <!-- Start Header -->
+      <div class="header">
+        <div class="logo">
+          <a href="index.html">
+            <img src="images/logo.jpg" alt="" />
+          </a>
+        </div>
+        <div class="nav">
+          <ul>
+            <li>
+              <div class="dropdown">
+                <i class="fa-solid fa-bars"></i>
+                <div class="dropdown-content">
+                  <a href="index.html">Home</a>
+                  <a href="restaurants.html">Restaurants</a>
+                  <a href="#categories">Categories</a>
+                  <a href="#foods">Foods</a>
+                </div>
+              </div>
+            </li>
+            <li><a href="index.html" class="link">Home</a></li>
+            <li>
+              <a href="restaurants.html" class="active-link link"
+                >Restaurants</a
+              >
+            </li>
+            <li><a href="#categories" class="link">Categories</a></li>
+            <li><a href="#foods" class="link">Foods</a></li>
+            <li>
+              <a href="checkout.html"
+                ><i class="fa-solid fa-bag-shopping"></i
+              ></a>
+            </li>
+            <li><a href="login.html" class="mybtn">Login</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- End Header -->
+      <!-- Start Restaurants -->
+      <div class="restaurants" id="restaurants">
+        <h1 class="c-main">
+          All <span class="c-secondary">Restaurants</span>
+          <!-- <div class="underline"></div> -->
+        </h1>
+        <div class="restaurants-cont"></div>
+      </div>
+      <!-- End Restaurants -->
+      <!-- Start Categories -->
+      <div class="categories" id="categories">
+        <h1 class="c-main">
+          <span class="restaurant-name"> Restaurant </span>
+          <span class="c-secondary">Categories</span>
+        </h1>
+        <br />
+        <div class="categories-cont"></div>
+      </div>
+      <!-- End Categories -->
+      <!-- Start Food -->
+      <div class="foods" id="foods">
+        <h1 class="c-main">
+          <span class="c-main category-name">Category</span>
+          <span class="c-secondary">Foods</span>
+          <!-- <div class="underline"></div> -->
+        </h1>
+        <div class="popular-cont foods-cont" id="popular-cont-3"></div>
+      </div>
+      <!-- End Food -->
+    </div>
+    <!-- End Main -->
+
+    <script src="data.js"></script>
+    <script>
+      //restaurantsAll
+      var activeRestaurant = data.find(
+        (e) => e.restaurant == restaurantsAll[0]
+      );
+      let firstCategory = activeRestaurant.foodItems[0].foodType;
+      var activeCategory = {
+        category: firstCategory,
+        foodItems: activeRestaurant.foodItems.filter(
+          (e) => e.foodType == firstCategory
+        ),
+      };
+      let restaurantCategories = [];
+      scroll("popular-cont-3");
+      function loadFood() {
+        let foodsCont = document.querySelector(".foods .foods-cont");
+        foodsCont.innerHTML = "";
+        activeCategory.foodItems.forEach((food) => {
+          foodsCont.innerHTML += `<div class="popular-card food">
+                        <div class="img">
+                            <img src="images/${food.image}" alt="">
+                        </div>
+                        <p class="name">
+                          ${food.foodName}
+                          </p>
+                          <div class="rate">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="desc">
+                              ${
+                                food?.protein ? food.protein : ""
+                              } - Calroies: ${food?.calories}
+                              </p>
+                              <div class="price-order">
+                                <p class="price">
+                                  $${food?.price}
+                                  </p>
+                                  <a href="#foods" onclick="addToCart(${JSON.stringify(
+                                    {
+                                      ...food,
+                                      restaurant: activeRestaurant.restaurant,
+                                    }
+                                  )
+                                    .split('"')
+                                    .join("&quot;")})" class="mybtn">
+                                    Order Now
+                                    </a>
+                        </div>
+                        </div>`;
+        });
+
+        let restName = document.querySelector(".category-name");
+        restName.innerHTML = activeCategory.category;
+      }
+
+      function clickCategory(category) {
+        let categoriesHTML = document.querySelectorAll(
+          ".categories .categories-cont .category"
+        );
+
+        categoriesHTML.forEach((cat) => {
+          cat.classList.remove("active-category");
+        });
+
+        category.classList.add("active-category");
+
+        activeCategory = {
+          category: category.dataset.name,
+          foodItems: activeRestaurant.foodItems.filter(
+            (e) => e.foodType == category.dataset.name
+          ),
+        };
+
+        loadFood();
+      }
+
+      function loadCategories() {
+        // Categories teb3in lal restaurant
+        restaurantCategories = [
+          ...new Set(
+            activeRestaurant.foodItems
+              .map((e) => e.foodType)
+              .filter((e) => e != undefined)
+          ),
+        ];
+        let categoriesCont = document.querySelector(
+          ".categories .categories-cont"
+        );
+        categoriesCont.innerHTML = "";
+        for (const key in restaurantCategories) {
+          categoriesCont.innerHTML += `
+            <div class="category" data-name="${restaurantCategories[key]}" onclick="clickCategory(this)">
+                <div class="icon">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <div class="text">${restaurantCategories[key]}</div>
+            </div>
+            `;
+        }
+
+        let firstCateg = document.querySelector(
+          ".categories .category:first-child"
+        );
+        firstCateg.classList.add("active-category");
+
+        let restName = document.querySelector(".restaurant-name");
+        restName.innerHTML = activeRestaurant.restaurant;
+
+        activeCategory = {
+          category: firstCateg.dataset.name,
+          foodItems: activeRestaurant.foodItems.filter(
+            (e) => e.foodType == firstCateg.dataset.name
+          ),
+        };
+
+        loadFood();
+      }
+
+      function clickRestaurant(restaurant) {
+        let restaurantsHTML = document.querySelectorAll(
+          ".restaurants-cont .restaurant"
+        );
+
+        restaurantsHTML.forEach((restaurant) => {
+          restaurant.classList.remove("active-restaurant");
+        });
+        restaurant.classList.add("active-restaurant");
+
+        activeRestaurant = data.find(
+          (e) => e.restaurant == restaurant.dataset.name
+        );
+
+        loadCategories();
+      }
+
+      function loadRestaurants() {
+        let restaurantCont = document.querySelector(".restaurants-cont");
+
+        restaurantsAll.forEach((restaurant) => {
+          restaurantCont.innerHTML += `
+                <div class="restaurant" onclick="clickRestaurant(this)" data-name="${restaurant}">
+                    ${restaurant}
+                    </div>
+            `;
+        });
+
+        let firstRest = document.querySelector(
+          ".restaurants .restaurant:first-child"
+        );
+
+        firstRest.classList.add("active-restaurant");
+      }
+
+      function loadAll() {
+        loadRestaurants();
+        loadCategories();
+        loadFood();
+      }
+    </script>
+  </body>
+</html>
